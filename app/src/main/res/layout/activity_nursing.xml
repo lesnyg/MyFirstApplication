@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_margin="8dp"
+    android:orientation="vertical"
     tools:context=".NursingActivity">
 
     <LinearLayout
@@ -47,6 +47,20 @@
             android:layout_height="wrap_content"
             android:hint="혈압"
             android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="/"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/et_blood2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="혈압"
+            android:textSize="24sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -66,6 +80,20 @@
             android:layout_height="wrap_content"
             android:hint="맥박"
             android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="/"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/et_pulse2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="혈압"
+            android:textSize="24sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -83,7 +111,7 @@
             android:id="@+id/et_heat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-             android:hint="체온"
+            android:hint="체온"
             android:textSize="24sp" />
     </LinearLayout>
 
@@ -104,6 +132,21 @@
             android:layout_height="wrap_content"
             android:hint="호흡"
             android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="/"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/et_breath2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="혈압"
+            android:textSize="24sp" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -122,6 +165,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="혈당"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="/"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/et_glucose2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="혈압"
             android:textSize="24sp" />
     </LinearLayout>
 
@@ -159,9 +216,6 @@
             android:id="@+id/et_condition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:hint="상태"
             android:textSize="24sp" />
     </LinearLayout>
@@ -193,7 +247,7 @@
         <TextView
             android:layout_width="140dp"
             android:layout_height="match_parent"
-             android:text="배변"
+            android:text="배변"
             android:textSize="24sp" />
 
         <EditText
@@ -208,7 +262,6 @@
         android:id="@+id/btn_send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="전송하기"
-        />
+        android:text="전송하기" />
 
 </LinearLayout>

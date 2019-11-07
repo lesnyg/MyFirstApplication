@@ -1,7 +1,5 @@
 package com.example.myfirstapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -12,11 +10,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class NursingActivity extends AppCompatActivity {
 
@@ -34,7 +38,9 @@ public class NursingActivity extends AppCompatActivity {
     Button btn_send;
 
     String name;
-    String dbname;
+    String currentDate;
+    String startTime;
+    String endTime;
     String room;
     String blood;
     String pulse;
@@ -45,18 +51,22 @@ public class NursingActivity extends AppCompatActivity {
     String condition;
     String meal;
     String evacuation;
+    String usingTime;
     private ResultSet resultSet;
     private Connection connection;
     private Bitmap bitmap;
+    Date date;
+    Date endDate;
+    Date endTimeParse;
+    Date startDate;
 
     private AsyncTask<String, String, String> mTask;
+    SimpleDateFormat timeformatter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nursing);
-
-        mTask = new NursingActivity.MySyncTask().execute();
 
         Intent intent = getIntent();
         name = intent.getExtras().getString("name");
@@ -76,22 +86,57 @@ public class NursingActivity extends AppCompatActivity {
         btn_send = findViewById(R.id.btn_send);
 
         tv_name.setText(name);
-        blood = et_blood.getText().toString();
-        pulse = et_pulse.getText().toString();
-        heat = et_heat.getText().toString();
-        breath = et_breath.getText().toString();
-        glucose = et_glucose.getText().toString();
-        weight = et_weight.getText().toString();
-        condition = et_condition.getText().toString();
-        meal = et_meal.getText().toString();
-        evacuation = et_evacuation.getText().toString();
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+
+        date = new Date();
+        currentDate = formatter.format(date);
+        timeformatter = new SimpleDateFormat("HH:mm:ss",Locale.KOREA);
+        startTime = timeformatter.format(date);
+        try {
+            startDate = timeformatter.parse(startTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
 
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                blood = et_blood.getText().toString();
+                pulse = et_pulse.getText().toString();
+                heat = et_heat.getText().toString();
+                breath = et_breath.getText().toString();
+                glucose = et_glucose.getText().toString();
+                weight = et_weight.getText().toString();
+                condition = et_condition.getText().toString();
+                meal = et_meal.getText().toString();
+                evacuation = et_evacuation.getText().toString();
+
+
+                mTask = new NursingActivity.MySyncTask().execute();
+                endDate = new Date();
+                try {
+                    endTime = timeformatter.format(endDate);
+                    endTimeParse = timeformatter.parse(timeformatter.format(endDate));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+//                d2 = timeformatter.parse(endDate);
+                long diff = endTimeParse.getTime()-startDate.getTime();
+                long diffSeconds = diff / 1000;
+                long diffMinutes = diff / (60 * 1000);
+                long diffHours = diff / (60 * 60 * 1000);
+
+                usingTime = diffHours+":"+diffMinutes+":"+diffSeconds;
+
+                Toast.makeText(NursingActivity.this, usingTime, Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
     }
 
     public class MySyncTask extends AsyncTask<String, String, String> {
@@ -123,7 +168,8 @@ public class NursingActivity extends AppCompatActivity {
             Statement statement = connection.createStatement();
 
 
-            resultSet = statement.executeQuery("insert into Su_간호관리정보(수급자명,혈압1,맥박1,체온,호흡1,혈당1,체중,상태,식사,배설) values(name,blood,pulse,heat,breath,glucose,weight,condition,meal,evacuation)");
+            resultSet = statement.executeQuery("insert into Su_간호관리정보(수급자명,일자,혈압1,맥박1,체온,호흡1,혈당1,체중,상태,식사,배설,간호시작시간,간호종료시간,간호처치시간) " +
+                    "values('" + name + "','"+currentDate+"','" + blood + "','" + pulse + "','" + heat + "','" + breath + "','" + glucose + "','" + weight + "','" + condition + "','" + meal + "','" + evacuation + "','"+startTime+"','"+endTime+"','"+usingTime+"')");
             while (resultSet.next()) {
             }
         } catch (ClassNotFoundException e) {

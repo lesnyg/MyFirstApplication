@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,9 +37,16 @@ class RecipientAdapter extends RecyclerView.Adapter<RecipientAdapter.RecipientHo
     @Override
     public void onBindViewHolder(@NonNull final RecipientAdapter.RecipientHolder holder, int position) {
         Recipient recipient = mList.get(position);
+//
+//        int indiviPay = Integer.parseInt(recipient.getIndiviPay());
+//
+//        DecimalFormat myFormatter = new DecimalFormat("###,###");
+//        String formattedindiviPay = myFormatter.format(indiviPay);
+
+
         holder.img_person.setImageBitmap(recipient.getBitmap());
         holder.tv_name.setText(recipient.getName());
-        holder.tv_indiviPay.setText(recipient.getIndiviPay());
+        holder.tv_indiviPay.setText(recipient.getIndiviPay()+"원");
         holder.tv_rating.setText(recipient.getRating());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -83,4 +91,10 @@ class RecipientAdapter extends RecyclerView.Adapter<RecipientAdapter.RecipientHo
     public void setOnRecipientClickListener(RecipientAdapter.OnRecipientClickListener listener) {
         mListener = listener;
     }
+
+
 }
+
+
+
+

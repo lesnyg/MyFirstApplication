@@ -25,60 +25,67 @@ import java.util.Locale;
 
 public class NursingActivity extends AppCompatActivity {
 
-    TextView tv_name;
-    EditText et_room;
-    EditText et_blood;
-    EditText et_blood2;
-    EditText et_pulse;
-    EditText et_pulse2;
-    EditText et_heat;
-    EditText et_breath;
-    EditText et_breath2;
-    EditText et_glucose;
-    EditText et_glucose2;
-    EditText et_weight;
-    EditText et_condition;
-    EditText et_meal;
-    EditText et_evacuation;
-    EditText et_behavior;
-    EditText et_fecesUrine;
-    EditText et_delirium;
-    EditText et_fall;
-    EditText et_bedsore;
-    EditText et_bodyarea;
-    EditText et_pain;
-    EditText et_dehydrated;
-    EditText et_content;
-    Button btn_send;
+    private TextView tv_name;
+    private EditText et_room;
+    private EditText et_blood;
+    private EditText et_blood2;
+    private EditText et_pulse;
+    private EditText et_pulse2;
+    private EditText et_heat;
+    private EditText et_breath;
+    private EditText et_breath2;
+    private EditText et_glucose;
+    private EditText et_glucose2;
+    private EditText et_weight;
+    private EditText et_condition;
+    private EditText et_meal;
+    private EditText et_evacuation;
+    private EditText et_behavior;
+    private EditText et_fecesUrine;
+    private EditText et_delirium;
+    private EditText et_fall;
+    private EditText et_bedsore;
+    private EditText et_bodyarea;
+    private EditText et_pain;
+    private EditText et_dehydrated;
+    private EditText et_content;
+    private EditText et_contentDetail;
+    private Button btn_send;
 
-    String name;        //이름
-    String currentDate;//오늘날짜
-    String startTime;   //간호시작시간
-    String endTime;     //간호종료시간
-    String room;        //병실
-    String blood;       //혈압1
-    String blood2;      //혈압2
-    String pulse;       //맥박1
-    String pulse2;      //맥박2
-    String heat;        //체온
-    String breath;      //호흡1
-    String breath2;     //호흡2
-    String glucose;     //혈당1
-    String glucose2;    //혈당2
-    String weight;      //체중
-    String condition;      //상태
-    String meal;            //식사
-    String evacuation;      //배설(횟수?)
-    String behavior;        //문제행동
-    String fecesUrine;      //소대변(상태?)
-    String delirium;        //섬망
-    String fall;            //낙상
-    String bedsore;         //욕창
-    String bodyarea;        //부위
-    String pain;            //통증
-    String dehydrated;      //탈수
-    String content;         //내용
-    String usingTime;       //간호처치시간
+    private String name;        //이름
+    private String gender;      //성별
+    private String birth;       //생년원일
+    private String rating;      //등급
+    private String pastdisease;      //과거병력
+    private String responsibility;      //직원명
+    private String currentDate;//오늘날짜
+    private String startTime;   //간호시작시간
+    private String endTime;     //간호종료시간
+    private String room;        //병실
+    private String blood;       //혈압1
+    private String blood2;      //혈압2
+    private String pulse;       //맥박1
+    private String pulse2;      //맥박2
+    private String heat;        //체온
+    private String breath;      //호흡1
+    private String breath2;     //호흡2
+    private String glucose;     //혈당1
+    private String glucose2;    //혈당2
+    private String weight;      //체중
+    private String condition;      //상태
+    private String meal;            //식사
+    private String evacuation;      //배설(횟수?)
+    private String behavior;        //문제행동
+    private String fecesUrine;      //소대변(상태?)
+    private String delirium;        //섬망
+    private String fall;            //낙상
+    private String bedsore;         //욕창
+    private String bodyarea;        //부위
+    private String pain;            //통증
+    private String dehydrated;      //탈수
+    private String content;         //내용
+    private String contentDetail;     //상세내용
+    private String usingTime;       //간호처치시간
     private ResultSet resultSet;
     private Connection connection;
     private Bitmap bitmap;
@@ -98,6 +105,13 @@ public class NursingActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         name = intent.getExtras().getString("name");
+        gender = intent.getExtras().getString("gender");
+        rating = intent.getExtras().getString("rating");
+        birth = intent.getExtras().getString("birth");
+        pastdisease = intent.getExtras().getString("pastdisease");
+        responsibility = intent.getExtras().getString("responsibility");
+
+
         Toast.makeText(this, name, Toast.LENGTH_SHORT).show();
 
         tv_name = findViewById(R.id.tv_name);
@@ -115,15 +129,16 @@ public class NursingActivity extends AppCompatActivity {
         et_condition = findViewById(R.id.et_condition);
         et_meal = findViewById(R.id.et_meal);
         et_evacuation = findViewById(R.id.et_evacuation);
-        et_behavior = findViewById(R.id.et_evacuation);
-        et_fecesUrine = findViewById(R.id.et_evacuation);
-        et_delirium = findViewById(R.id.et_evacuation);
-        et_fall = findViewById(R.id.et_evacuation);
-        et_bedsore = findViewById(R.id.et_evacuation);
-        et_bodyarea = findViewById(R.id.et_evacuation);
-        et_pain = findViewById(R.id.et_evacuation);
-        et_dehydrated = findViewById(R.id.et_evacuation);
-        et_content = findViewById(R.id.et_evacuation);
+        et_behavior = findViewById(R.id.et_behavior);
+        et_fecesUrine = findViewById(R.id.et_fecesUrine);
+        et_delirium = findViewById(R.id.et_delirium);
+        et_fall = findViewById(R.id.et_fall);
+        et_bedsore = findViewById(R.id.et_bedsore);
+        et_bodyarea = findViewById(R.id.et_bodyarea);
+        et_pain = findViewById(R.id.et_pain);
+        et_dehydrated = findViewById(R.id.et_dehydrated);
+        et_content = findViewById(R.id.et_content);
+        et_contentDetail = findViewById(R.id.et_contentdetail);
         btn_send = findViewById(R.id.btn_send);
 
         tv_name.setText(name);
@@ -132,7 +147,7 @@ public class NursingActivity extends AppCompatActivity {
 
         date = new Date();
         currentDate = formatter.format(date);
-        timeformatter = new SimpleDateFormat("HH:mm:ss",Locale.KOREA);
+        timeformatter = new SimpleDateFormat("HH:mm:ss", Locale.KOREA);
         startTime = timeformatter.format(date);
         try {
             startDate = timeformatter.parse(startTime);
@@ -158,6 +173,7 @@ public class NursingActivity extends AppCompatActivity {
                 condition = et_condition.getText().toString();
                 meal = et_meal.getText().toString();
                 evacuation = et_evacuation.getText().toString();
+                behavior = et_behavior.getText().toString();
                 fecesUrine = et_fecesUrine.getText().toString();
                 delirium = et_delirium.getText().toString();
                 fall = et_fall.getText().toString();
@@ -166,6 +182,7 @@ public class NursingActivity extends AppCompatActivity {
                 pain = et_pain.getText().toString();
                 dehydrated = et_dehydrated.getText().toString();
                 content = et_content.getText().toString();
+                contentDetail = et_contentDetail.getText().toString();
 
 
                 mTask = new NursingActivity.MySyncTask().execute();
@@ -177,13 +194,12 @@ public class NursingActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 //                d2 = timeformatter.parse(endDate);
-                long diff = endTimeParse.getTime()-startDate.getTime();
+                long diff = endTimeParse.getTime() - startDate.getTime();
                 usingTime = timeformatter.format(diff);
 
                 Toast.makeText(NursingActivity.this, usingTime, Toast.LENGTH_SHORT).show();
             }
         });
-
 
 
     }
@@ -216,11 +232,10 @@ public class NursingActivity extends AppCompatActivity {
             connection = DriverManager.getConnection("jdbc:jtds:sqlserver://222.122.213.216/mashw08", "mashw08", "msts0850op");
             Statement statement = connection.createStatement();
 
-            resultSet = statement.executeQuery("insert into Su_간호관리정보(수급자명,일자,병실,혈압1,혈압2,맥박1,맥박2,체온,호흡1,호흡2,혈당1,혈당2,체중,상태,식사,배설,간호시작시간,간호종료시간,간호처치시간," +
-                    "문제행동,소대변,섬망,낙상,욕창,부위,통증,탈수,내용) " +
-                    "values('" + name + "','"+currentDate+"','"+room+"','" + blood + "','" + blood2 + "','" + pulse + "','" + pulse2 + "','" + heat + "','" + breath + "','" + breath2 + "','" + glucose + "','" + glucose2 + "'," +
-                    "'" + weight + "','" + condition + "','" + meal + "','" + evacuation + "','"+startTime+"','"+endTime+"','"+usingTime+"'," +
-                    "'"+behavior+"','"+fecesUrine+"','"+delirium+"','"+fall+"','"+bedsore+"','"+bodyarea+"','"+pain+"','"+dehydrated+"','"+content+"',)");
+            resultSet = statement.executeQuery("insert into Su_간호관리정보(수급자명,성별,등급,주요질환,직원명,생년월일,일자,병실,혈압1,혈압2,맥박1,맥박2,체온,호흡1,호흡2,혈당1,혈당2,체중,상태,식사,배설,간호시작시간,간호종료시간,간호처치시간,문제행동,소대변,섬망,낙상,욕창,부위,통증,탈수,내용,내용상세) " +
+                    "values('" + name + "','"+gender+"','"+rating+"','"+pastdisease+"','"+responsibility+"','"+birth+"','" + currentDate + "','" + room + "','" + blood + "','" + blood2 + "','" + pulse + "','" + pulse2 + "','" + heat + "','" + breath + "','" + breath2 + "','" + glucose + "','" + glucose2 + "'," +
+                    "'" + weight + "','" + condition + "','" + meal + "','" + evacuation + "','" + startTime + "','" + endTime + "','" + usingTime + "'," +
+                    "'" + behavior + "','" + fecesUrine + "','" + delirium + "','" + fall + "','" + bedsore + "','" + bodyarea + "','" + pain + "','" + dehydrated + "','" + content + "','"+contentDetail+"')");
             while (resultSet.next()) {
             }
         } catch (ClassNotFoundException e) {

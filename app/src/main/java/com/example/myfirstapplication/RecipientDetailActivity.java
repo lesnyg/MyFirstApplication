@@ -52,6 +52,10 @@ public class RecipientDetailActivity extends AppCompatActivity {
     private String formattedGongPrice;
     private String formattedindividualPrice;
     private String formattedsum;
+    private String gender;
+    private String birth;
+    private String pastdisease;
+    private String responsibility;
 
     private String phoneNumber;
 
@@ -105,6 +109,12 @@ public class RecipientDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent nursingIntent = new Intent(RecipientDetailActivity.this, NursingActivity.class);
                 nursingIntent.putExtra("name", name);
+                nursingIntent.putExtra("gender", gender);
+                nursingIntent.putExtra("rating", rating);
+                nursingIntent.putExtra("birth", birth);
+                nursingIntent.putExtra("pastdisease", pastdisease);
+                nursingIntent.putExtra("responsibility", responsibility);
+
                 startActivity(nursingIntent);
             }
         });
@@ -155,6 +165,12 @@ public class RecipientDetailActivity extends AppCompatActivity {
                 individualper = resultSet.getString(38);
                 individualprice = resultSet.getString(39);
                 phoneNumber = resultSet.getString(20);
+                gender = resultSet.getString(11);
+                birth = resultSet.getString(22);
+                pastdisease = resultSet.getString("과거병력");
+                responsibility = resultSet.getString("담당");
+
+
 
                 final int gongPrice = Integer.parseInt(gongdanprice);
                 final int indiviPrice = Integer.parseInt(individualprice);

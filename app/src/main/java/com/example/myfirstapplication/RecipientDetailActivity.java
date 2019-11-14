@@ -107,7 +107,7 @@ public class RecipientDetailActivity extends AppCompatActivity {
         btn_nursing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nursingIntent = new Intent(RecipientDetailActivity.this, NursingActivity.class);
+                Intent nursingIntent = new Intent(RecipientDetailActivity.this,ServiceContentsActivity.class);
                 nursingIntent.putExtra("name", name);
                 nursingIntent.putExtra("gender", gender);
                 nursingIntent.putExtra("rating", rating);

@@ -19,6 +19,9 @@ public class Recipient {
         this.photoId = photoId;
         this.bitmap = bitmap;
     }
+    public Recipient(){
+
+    }
 
     public String getPhotoId() {
         return photoId;
